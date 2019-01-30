@@ -7,7 +7,8 @@
 
 #  s  c  o  u  t
 # 19  3 15 21 20
-# Then we add to each obtained digit consecutive digits from the key. For example. In case of key equal to 1939 :
+# Then we add to each obtained digit consecutive digits from the key.
+# For example. In case of key equal to 1939:
 
 #    s  c  o  u  t
 #   19  3 15 21 20
@@ -20,8 +21,17 @@
 # +  1  9  3  9  1  9  3  9  1  9  3
 #   --------------------------------
 #   14 10 22 29  6 27 19 18  6  12 8
-# Task
-# Write a function that accepts str string and key number and returns an array of integers representing encoded str.
+# Task 1 (encode)
+# Write a function that accepts str string and key number and returns an array of integers
+# representing encoded str.
+# Task 2 (decode)
+# Write a function that accepts an array of integers code and a key number.
+# As the result, it should return string containg a decoded message from the code.
+# Task 3 (find_the_key)
+# Write a function that accepts message string and an array of integers code.
+# As the result, it should return a key that was used to encrypt the message.
+# The key has to be shortest of all possible keys that can be used to code the message
+# (i.e. when possible keys are 12 , 1212, 121212, your solution should return 12).
 
 def encode(message, key)
   alphabet = ('a'..'z').to_a
@@ -30,5 +40,10 @@ def encode(message, key)
     i = key[index%key.size]
     alphabet.index(char) + 1 + i 
   }
-
 end
+
+def decode(code, key)
+  alphabet = ('a'..'z').to_a
+  (code.zip(key.digits.reverse.cycle).map { |c, k| c - k}).map { |char| alphabet[char-1] }.join
+end  
+
