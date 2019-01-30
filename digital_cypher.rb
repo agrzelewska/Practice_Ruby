@@ -47,3 +47,8 @@ def decode(code, key)
   (code.zip(key.digits.reverse.cycle).map { |c, k| c - k}).map { |char| alphabet[char-1] }.join
 end  
 
+def find_the_key(message, code)
+  key = message.codepoints.zip(code).map { |m, c| c + 96 - m }
+  end_point = (1...key.size).find { |i| key[0,i].cycle.take(key.size) == key }
+  key[0, end_point].join.to_i
+end  
